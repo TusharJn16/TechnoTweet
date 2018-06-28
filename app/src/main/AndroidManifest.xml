@@ -35,12 +35,12 @@
             android:name=".activities.MapsActivity"
             android:screenOrientation="userPortrait" />
         <activity android:name=".activities.NewPostActivity" />
-        <activity android:name=".activities.Login"
+        <activity android:name=".activities.LoginActivity"
             android:theme="@style/MyTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULTe" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
         </activity>
