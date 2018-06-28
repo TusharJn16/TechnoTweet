@@ -10,6 +10,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +20,16 @@ import android.widget.Toast;
 
 import com.collegeapp.collegeapp.R;
 import com.collegeapp.collegeapp.activities.NewPostActivity;
-import com.collegeapp.collegeapp.activities.mainActivity;
+import com.collegeapp.collegeapp.adapters.TwitterAdapter;
+import com.collegeapp.collegeapp.models.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +38,12 @@ import butterknife.Unbinder;
 
 public class Twitter extends Fragment {
 
+
+    DatabaseReference mref;
+    RecyclerView recyclerView;
+    TwitterAdapter adapter;
+    List<User> userList = new ArrayList<>();
+    View v;
     @BindView(R.id.bar)
     BottomAppBar bar;
     Unbinder unbinder;
@@ -34,6 +51,8 @@ public class Twitter extends Fragment {
     int i = R.id.app_bar_fav;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    @BindView(R.id.twitter_recycler)
+    RecyclerView twitterRecycler;
 
     public Twitter() {
     }
@@ -49,6 +68,37 @@ public class Twitter extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.v = view;
+        loadData();
+    }
+
+    private void loadData() {
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        twitterRecycler.setHasFixedSize(true);
+        twitterRecycler.setLayoutManager(layoutManager);
+        mref = FirebaseDatabase.getInstance().getReference().child("root").child("twitter").child("posts");
+
+        mref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    User user = snapshot.getValue(User.class);
+                    userList.add(user);
+                    Toast.makeText(getContext(), snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
+
+                }
+                adapter = new TwitterAdapter(getContext(), userList);
+                twitterRecycler.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -105,7 +155,8 @@ public class Twitter extends Fragment {
     public void onFabClicked() {
 
         Toast.makeText(getContext(), "fab", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(getActivity(),NewPostActivity.class);
+        Intent intent = new Intent(getActivity(), NewPostActivity.class);
         getActivity().startActivity(intent);
     }
+
 }
