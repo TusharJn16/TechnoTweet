@@ -3,6 +3,7 @@
     package="com.collegeapp.collegeapp">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,8 +15,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <activity android:name=".activities.mainActivity"
-            android:screenOrientation="userPortrait">
+
+        <activity android:name=".activities.mainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,17 +26,24 @@
         <activity
             android:name=".activities.scrollActivity"
             android:label="@string/a"
-            android:screenOrientation="userPortrait" >
+            android:screenOrientation="userPortrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.mainActivity" />
         </activity>
-        <activity android:name=".activities.MapsActivity"
-            android:screenOrientation="userPortrait">
+        <activity
+            android:name=".activities.MapsActivity"
+            android:screenOrientation="userPortrait" />
+        <activity android:name=".activities.NewPostActivity" />
+        <activity android:name=".activities.Login"
+            android:theme="@style/MyTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULTe" />
+            </intent-filter>
+
         </activity>
     </application>
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
 
 </manifest>
