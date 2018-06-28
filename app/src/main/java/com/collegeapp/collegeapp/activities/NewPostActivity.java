@@ -1,14 +1,25 @@
 package com.collegeapp.collegeapp.activities;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.collegeapp.collegeapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,12 +44,20 @@ public class NewPostActivity extends AppCompatActivity {
     ImageButton CameraIntent;
     @BindView(R.id.ImageChooser)
     ImageButton ImageChooser;
+    DatabaseReference myref = FirebaseDatabase.getInstance().getReference();
+    public FirebaseAuth mauth = FirebaseAuth.getInstance();
+    public FirebaseUser user;
+    Uri image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
         ButterKnife.bind(this);
+        myref = myref.child("root").child("twitter").child("posts");
+        user = mauth.getCurrentUser();
+        Glide.with(getApplicationContext()).load(user.getPhotoUrl()).into(profileImage);
+        imageRemoveButton.setVisibility(View.INVISIBLE);
     }
 
     @OnClick({R.id.closeButton, R.id.postButton, R.id.imageRemoveButton, R.id.CameraIntent, R.id.ImageChooser})
@@ -48,11 +67,31 @@ public class NewPostActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.postButton:
+            {
+
+                String des = Description.getText().toString();
+                if (!(TextUtils.isEmpty(des)))
+                {
+                    myref = myref.push();
+                    myref.child("email").setValue(user.getEmail());
+                    myref.child("name").setValue(user.getDisplayName());
+                    myref.child("postdata").setValue(des);
+                    String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+                    myref.child("posttime").setValue(mydate);
+                    myref.child("profileimage").setValue(user.getPhotoUrl().toString());
+                    if (postImage.getDrawable() == null)
+                        myref.child("postimage").setValue("0");
+                    else {
+                        Toast.makeText(this, "image is not Uploaded", Toast.LENGTH_SHORT).show();
+                        myref.child("postimage").setValue("0");
+                    }
+                }
+            }
                 finish();
                 break;
             case R.id.imageRemoveButton:
                 postImage.setVisibility(View.GONE);
-                postButton.setVisibility(View.GONE);
+                imageRemoveButton.setVisibility(View.GONE);
                 break;
             case R.id.CameraIntent:
                 break;

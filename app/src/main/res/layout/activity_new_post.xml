@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/apk/res-auto">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -92,7 +93,7 @@
                 android:clipToPadding="true"
                 android:id="@+id/postImage"
                 android:background="@drawable/round_outline"
-                android:src="@drawable/rsvyas" />
+                 />
 
             <ImageView
                 android:layout_gravity="right"
