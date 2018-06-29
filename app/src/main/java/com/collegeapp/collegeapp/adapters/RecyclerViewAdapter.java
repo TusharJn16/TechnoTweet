@@ -128,8 +128,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return contactsList.get(position).getName().toString().substring(0,1);
+        return contactsList.get(position).getName().substring(0,1);
     }
-
 
 }
