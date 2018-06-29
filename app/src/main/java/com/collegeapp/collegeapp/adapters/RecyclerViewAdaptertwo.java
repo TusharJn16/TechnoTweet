@@ -20,6 +20,7 @@ import com.collegeapp.collegeapp.activities.MapsActivity;
 import com.collegeapp.collegeapp.models.contacts;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAdaptertwo.ViewHolder> {
+public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAdaptertwo.ViewHolder> implements FastScrollRecyclerView.SectionedAdapter {
     public DatabaseReference myref;
     public Context context;
     public Typeface typeface;
@@ -100,5 +101,12 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
     public int getItemCount() {
         return templist.size();
     }
+
+    @NonNull
+    @Override
+    public String getSectionName(int position) {
+        return templist.get(position).getBus().substring(0,1);
+    }
+
 
 }
