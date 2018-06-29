@@ -78,12 +78,10 @@
     android:layout_marginBottom="8dp"
     android:layout_marginRight="8dp"
     android:id="@+id/recyclerView2"
-    app:fastScrollPopupBgColor="@color/colorAccent"
     app:fastScrollPopupTextColor="@android:color/primary_text_dark"
     app:fastScrollThumbColor="@color/colorAccent"
     app:fastScrollPopupBackgroundSize="56dp"
-    app:stackFromEnd="true"/>
-
+    app:fastScrollPopupBgColor="@color/colorAccent"/>
 
     </LinearLayout>
     </ScrollView>

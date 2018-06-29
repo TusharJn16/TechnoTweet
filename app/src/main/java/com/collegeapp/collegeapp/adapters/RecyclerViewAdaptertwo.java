@@ -105,7 +105,7 @@ public class RecyclerViewAdaptertwo extends RecyclerView.Adapter<RecyclerViewAda
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return templist.get(position).getBus().substring(0,1);
+        return templist.get(position).getBus().toString().substring(0,1);
     }
 
 
