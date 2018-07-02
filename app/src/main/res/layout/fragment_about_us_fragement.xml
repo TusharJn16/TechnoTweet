@@ -5,9 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.About_usFragement"
     android:padding="5dp">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,6 +36,4 @@
             android:textSize="14sp"
             android:textStyle="bold"/>
     </LinearLayout>
-</ScrollView>
-
 </FrameLayout>

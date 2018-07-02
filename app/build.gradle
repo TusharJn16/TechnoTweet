@@ -10,6 +10,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -40,6 +41,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.2'
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
     compile 'com.simplecityapps:recyclerview-fastscroll:1.0.18'
+    implementation 'com.firebaseui:firebase-ui-storage:0.6.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
